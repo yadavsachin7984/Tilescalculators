@@ -1,0 +1,388 @@
+
+<style>
+:root{--terra:#b85c38;--terra-d:#8f4429;--terra-l:#fdf0eb;--cream:#faf8f5;--stone:#f2ede7;--wht:#fff;--charcoal:#1e1c1a;--gray:#6b655e;--lgray:#a8a29c;--border:rgba(180,150,110,0.22);--success:#1e7a45;--success-bg:#edf7f2;--info:#185FA5;--info-bg:#E6F1FB;--amber:#633806;--amber-bg:#FAEEDA;--warn:#7a5500;--warn-bg:#fef7e6;--danger:#a32d2d;--r:12px;--rs:8px;--rx:6px}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Noto Sans Gujarati','Noto Sans',system-ui,sans-serif;background:var(--cream);color:var(--charcoal);padding-bottom:40px;transition:background .3s,color .3s}
+body.dark{--cream:#1a1816;--stone:#222018;--wht:#242220;--charcoal:#f0ece6;--gray:#b0a898;--lgray:#6b655e;--border:rgba(180,150,110,0.15);--success-bg:#0d2e1c;--info-bg:#0a1e35;--amber-bg:#2a1c08;--warn-bg:#2a1e08}
+.hdr{background:var(--terra);padding:11px 13px;display:flex;align-items:center;justify-content:space-between}
+.hdr-l{display:flex;align-items:center;gap:9px}
+.hdr-logo{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.2);border:2px solid rgba(255,255,255,0.4);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0;overflow:hidden}
+.hdr-logo img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.hdr h1{font-size:15px;font-weight:700;color:#fff}
+.hdr p{font-size:10px;color:rgba(255,255,255,0.75);margin-top:1px}
+.hdr-r{display:flex;gap:5px}
+.icon-btn{background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.3);border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-family:inherit}
+.icon-btn svg{width:14px;height:14px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.lang-bar{background:var(--stone);border-bottom:1px solid var(--border);display:flex}
+.lb{flex:1;padding:9px 4px;font-size:12px;font-family:inherit;border:none;background:transparent;color:var(--gray);cursor:pointer;border-bottom:2.5px solid transparent}
+.lb.active{color:var(--terra);font-weight:700;border-bottom-color:var(--terra);background:var(--wht)}
+.nav-tabs{background:var(--wht);border-bottom:1px solid var(--border);display:flex}
+.nav-tab{flex:1;padding:8px 3px;font-size:10px;font-family:inherit;font-weight:500;border:none;background:transparent;color:var(--gray);cursor:pointer;border-bottom:2.5px solid transparent;display:flex;flex-direction:column;align-items:center;gap:2px;white-space:nowrap}
+.nav-tab svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.nav-tab.active{color:var(--terra);border-bottom-color:var(--terra)}
+.wrap{max-width:640px;margin:0 auto;padding:12px 12px 0}
+.page{display:none}.page.active{display:block}
+.slbl{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--terra);margin:12px 0 6px}
+.card{background:var(--wht);border:1px solid var(--border);border-radius:var(--r);padding:12px 13px;margin-bottom:10px}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.f label{font-size:11px;color:var(--gray);display:block;margin-bottom:3px}
+.f input,.f select{width:100%;padding:8px 9px;font-size:12px;font-family:inherit;border:1px solid var(--border);border-radius:var(--rs);background:var(--cream);color:var(--charcoal);-webkit-appearance:none}
+.f input:focus,.f select:focus{outline:none;border-color:var(--terra);background:var(--wht)}
+.hint{background:var(--warn-bg);border:1px solid rgba(122,85,0,0.18);border-radius:var(--rs);padding:8px 11px;font-size:11px;color:var(--warn);line-height:1.55;margin-bottom:9px}
+.legend{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.leg{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--gray)}
+.leg-dot{width:9px;height:9px;border-radius:2px;flex-shrink:0}
+.brow{background:var(--wht);border:1px solid var(--border);border-radius:var(--r);padding:10px 11px 8px;margin-bottom:8px;position:relative}
+.badge{position:absolute;top:-7px;left:11px;font-size:9px;font-weight:700;padding:2px 8px;border-radius:8px;color:#fff}
+.badge.sqft{background:var(--success)}.badge.rft{background:var(--info)}.badge.pcs{background:var(--amber)}
+.bdel{position:absolute;top:7px;right:7px;background:none;border:none;color:#ccc;font-size:18px;cursor:pointer;line-height:1;padding:0 3px;font-family:inherit}
+.bdel:hover{color:#d44}
+.bsel{width:100%;margin:6px 0 8px;padding:8px 26px 8px 9px;font-size:11px;font-family:inherit;border:1px solid var(--border);border-radius:var(--rs);background:var(--cream) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 8px center;color:var(--charcoal);-webkit-appearance:none}
+.bsel:focus{outline:none;border-color:var(--terra)}
+.drow{display:grid;gap:6px;margin-bottom:6px;align-items:end}
+.drow.sq{grid-template-columns:1fr 1fr auto}.drow.rft-d{grid-template-columns:1fr auto}.drow.pcs-d{grid-template-columns:auto}
+.dlbl{font-size:10px;color:var(--gray);margin-bottom:2px}
+.ftin{display:flex;gap:3px}
+.ftin input{flex:1;min-width:0;padding:7px 4px;font-size:11px;font-family:inherit;border:1px solid var(--border);border-radius:var(--rx);background:var(--cream);color:var(--charcoal);text-align:center}
+.ftin input:focus{outline:none;border-color:var(--terra)}
+.ftins{display:flex;gap:3px;margin-top:1px}
+.ftins span{flex:1;font-size:9px;color:var(--lgray);text-align:center}
+.qinp{width:46px;padding:7px 4px;font-size:12px;font-family:inherit;border:1px solid var(--border);border-radius:var(--rx);background:var(--cream);color:var(--charcoal);text-align:center}
+.rrow{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.rlbl{font-size:10px;color:var(--gray)}
+.rinp{width:75px;padding:6px 7px;font-size:11px;font-family:inherit;border:1px solid var(--border);border-radius:var(--rx);background:var(--cream);color:var(--charcoal);text-align:center}
+.rinp:focus{outline:none;border-color:var(--terra)}
+.abar{border-radius:var(--rx);padding:7px 10px;display:flex;justify-content:space-between;align-items:center}
+.abar.sqft{background:var(--success-bg)}.abar.rft{background:var(--info-bg)}.abar.pcs{background:var(--amber-bg)}
+.aft{font-size:10px}.aft.sqft{color:var(--success)}.aft.rft{color:var(--info)}.aft.pcs{color:var(--amber)}
+.aval{font-size:15px;font-weight:700}.aval.sqft{color:var(--success)}.aval.rft{color:var(--info)}.aval.pcs{color:var(--amber)}
+.abtn{width:100%;padding:11px;font-size:12px;font-family:inherit;font-weight:700;border:2px dashed rgba(180,150,110,0.4);border-radius:var(--r);background:transparent;color:var(--terra);cursor:pointer;margin-bottom:10px}
+.tots{background:var(--wht);border:1px solid var(--border);border-radius:var(--r);padding:12px 13px;margin-bottom:10px}
+.trow{display:flex;justify-content:space-between;padding:5px 0;font-size:12px;border-bottom:1px solid var(--border)}
+.trow:last-of-type{border-bottom:none}
+.tlbl{color:var(--gray)}.tval{font-weight:500}
+.frow{display:none}
+.gbox{background:var(--terra);border-radius:var(--rs);padding:11px 13px;display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+.glbl{font-size:13px;font-weight:700;color:#fff}
+.gval{font-size:26px;font-weight:700;color:#fff;letter-spacing:-0.02em}
+.fwarn{background:var(--warn-bg);border-radius:var(--rx);padding:7px 10px;font-size:10px;color:var(--warn);margin-top:8px;display:none}
+.note-el{font-size:10px;color:var(--lgray);margin-top:8px}
+.srow{display:flex;justify-content:space-between;border-top:1px solid var(--border);padding-top:8px;margin-top:8px;font-size:10px;color:var(--lgray)}
+.adv-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:9px}
+.adv-box{border-radius:var(--rs);padding:9px 11px}
+.adv-box.paid{background:var(--success-bg)}.adv-box.rem{background:var(--amber-bg)}
+.adv-lbl{font-size:10px;margin-bottom:2px}
+.adv-box.paid .adv-lbl{color:var(--success)}.adv-box.rem .adv-lbl{color:var(--amber)}
+.adv-val{font-size:15px;font-weight:700}
+.adv-box.paid .adv-val{color:var(--success)}.adv-box.rem .adv-val{color:var(--amber)}
+.bn-bar{background:var(--info-bg);border:1px solid rgba(24,95,165,0.2);border-radius:var(--rs);padding:7px 11px;display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}
+.bn-lbl{font-size:10px;color:var(--info)}.bn-val{font-size:13px;font-weight:700;color:var(--info)}
+.btn-row{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:9px}
+.wabtn{width:100%;padding:11px;font-size:12px;font-family:inherit;font-weight:700;background:#25d366;color:#fff;border:none;border-radius:var(--r);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
+.wabtn svg{width:16px;height:16px;fill:#fff;flex-shrink:0}
+.pdfbtn{width:100%;padding:11px;font-size:12px;font-family:inherit;font-weight:700;background:var(--terra);color:#fff;border:none;border-radius:var(--r);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
+.pdfbtn svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.savebtn{width:100%;padding:11px;font-size:12px;font-family:inherit;font-weight:700;background:var(--info);color:#fff;border:none;border-radius:var(--r);cursor:pointer;margin-bottom:9px}
+.map-btn{width:100%;padding:10px;font-size:12px;font-family:inherit;font-weight:700;background:var(--info-bg);color:var(--info);border:1px solid rgba(24,95,165,0.25);border-radius:var(--r);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:9px;text-decoration:none}
+.map-btn svg{width:14px;height:14px;stroke:var(--info);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.hist-item{background:var(--wht);border:1px solid var(--border);border-radius:var(--r);padding:11px 13px;margin-bottom:8px}
+.hist-top{display:flex;justify-content:space-between;margin-bottom:3px}
+.hist-name{font-size:13px;font-weight:500}
+.hist-amt{font-size:13px;font-weight:700;color:var(--success)}
+.hist-meta{font-size:10px;color:var(--lgray)}
+.hist-actions{display:flex;gap:5px;margin-top:7px}
+.hist-btn{flex:1;padding:5px;font-size:11px;font-family:inherit;border:1px solid var(--border);border-radius:var(--rs);background:transparent;color:var(--gray);cursor:pointer}
+.hist-btn.del{color:var(--danger);border-color:rgba(163,45,45,0.3)}
+.cust-item{background:var(--wht);border:1px solid var(--border);border-radius:var(--r);padding:10px 13px;margin-bottom:8px;display:flex;align-items:center;gap:11px}
+.cust-av{width:36px;height:36px;border-radius:50%;background:var(--terra-l);color:var(--terra);font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cust-nm{font-size:13px;font-weight:500}
+.cust-sub{font-size:10px;color:var(--lgray);margin-top:1px}
+.rev-card{background:var(--wht);border:1px solid var(--border);border-radius:var(--r);padding:12px 13px;margin-bottom:9px}
+.stars{display:flex;gap:3px;margin-bottom:7px}
+.star{width:12px;height:12px;background:var(--terra);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
+.rev-txt{font-size:12px;color:var(--charcoal);line-height:1.6;font-style:italic;margin-bottom:7px}
+.rev-auth{font-size:11px;font-weight:500;color:var(--terra)}
+.rev-place{font-size:10px;color:var(--lgray)}
+.set-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border)}
+.set-row:last-child{border-bottom:none}
+.set-lbl{font-size:12px;color:var(--charcoal)}.set-sub{font-size:10px;color:var(--lgray);margin-top:2px}
+.toggle{position:relative;width:42px;height:22px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0}
+.tog-sl{position:absolute;inset:0;background:#ccc;border-radius:11px;cursor:pointer;transition:.3s}
+.tog-sl:before{content:'';position:absolute;width:16px;height:16px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.3s}
+.toggle input:checked+.tog-sl{background:var(--terra)}
+.toggle input:checked+.tog-sl:before{transform:translateX(20px)}
+.prof-wrap{display:flex;align-items:center;gap:11px;margin-bottom:11px}
+.prof-prev{width:58px;height:58px;border-radius:50%;background:var(--terra-l);border:2px solid var(--terra);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:var(--terra);overflow:hidden;flex-shrink:0}
+.prof-prev img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.up-btn{padding:7px 12px;font-size:11px;font-family:inherit;font-weight:500;background:var(--terra-l);color:var(--terra);border:1px solid var(--terra);border-radius:var(--rs);cursor:pointer}
+.empty-state{text-align:center;padding:2.5rem 1rem;color:var(--lgray)}
+.empty-state svg{width:36px;height:36px;stroke:var(--lgray);fill:none;stroke-width:1.2;margin-bottom:10px}
+.empty-state p{font-size:12px;white-space:pre-line}
+.pdf-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:999;align-items:flex-start;justify-content:center;padding:14px 10px;overflow-y:auto}
+.pdf-overlay.open{display:flex}
+.pdf-modal{background:var(--wht);border-radius:12px;width:100%;max-width:600px;overflow:hidden;margin:auto}
+.pdf-mhdr{background:var(--terra);padding:11px 14px;display:flex;justify-content:space-between;align-items:center}
+.pdf-mhdr span{color:#fff;font-weight:700;font-size:13px}
+.pdf-close{background:none;border:none;color:#fff;font-size:22px;cursor:pointer;line-height:1;padding:0 4px;font-family:inherit}
+.pdf-actions{display:flex;gap:7px;padding:9px 13px;background:#f8f6f3;border-bottom:1px solid #ede8e0}
+.pdf-ab{flex:1;padding:8px;font-size:12px;font-family:inherit;font-weight:700;border:none;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px}
+.pdf-ab.pr{background:var(--terra);color:#fff}.pdf-ab.pr svg{width:13px;height:13px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pdf-ab.wa{background:#25d366;color:#fff}.pdf-ab.wa svg{width:13px;height:13px;fill:#fff}
+.ftr{text-align:center;font-size:10px;color:var(--lgray);padding:14px 12px 10px;line-height:1.7}
+</style>
+
+<div class="hdr">
+  <div class="hdr-l">
+    <div class="hdr-logo" id="hdr-logo"><span id="hdr-init">કિ</span></div>
+    <div><h1 id="hdr-name">શ્રી કિશન ટાઇલ્સ</h1><p>Tile Bill Calculator · Himmatnagar</p></div>
+  </div>
+  <div class="hdr-r">
+    <a class="icon-btn" href="tel:+918320059124"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.68 12 19.79 19.79 0 011.61 3.45 2 2 0 013.6 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.91 8.59a16 16 0 006.5 6.5l.95-.95a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></a>
+    <button class="icon-btn" onclick="toggleDark()"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></button>
+  </div>
+</div>
+<div class="lang-bar">
+  <button class="lb active" onclick="setLang('gu')">ગુજરાતી</button>
+  <button class="lb" onclick="setLang('hi')">हिंदी</button>
+  <button class="lb" onclick="setLang('en')">English</button>
+</div>
+<div class="nav-tabs">
+  <button class="nav-tab active" onclick="showPage('bill')"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span id="tb-bill">Bill</span></button>
+  <button class="nav-tab" onclick="showPage('history')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span id="tb-hist">History</span></button>
+  <button class="nav-tab" onclick="showPage('customers')"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><span id="tb-cust">Customers</span></button>
+  <button class="nav-tab" onclick="showPage('reviews')"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span id="tb-rev">Reviews</span></button>
+  <button class="nav-tab" onclick="showPage('settings')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg><span id="tb-set">Settings</span></button>
+</div>
+
+<div class="wrap">
+
+<!-- BILL PAGE -->
+<div class="page active" id="page-bill">
+  <div class="bn-bar"><span class="bn-lbl">Bill No.</span><span class="bn-val" id="bn-disp">BILL-2026-001</span></div>
+  <div class="slbl">ગ્રાહક માહિતી</div>
+  <div class="card">
+    <div class="fg">
+      <div class="f"><label id="lb-cust">ગ્રાહકનું નામ</label><input type="text" id="cust-name" placeholder="નામ..."/></div>
+      <div class="f"><label>ફોન નંબર</label><input type="tel" id="cust-phone" placeholder="98765..."/></div>
+      <div class="f"><label>સ્થળ / ઓરડો</label><input type="text" id="site-name" placeholder="બેડરૂમ..."/></div>
+      <div class="f"><label>તારીખ</label><input type="date" id="bill-date"/></div>
+      <div class="f"><label>માળ (0=ભોંય)</label><input type="number" id="floor-num" value="0" min="0" oninput="recalc()"/></div>
+      <div class="f"><label>Advance (₹)</label><input type="number" id="adv-inp" placeholder="0" min="0" oninput="recalc()"/></div>
+    </div>
+  </div>
+  <div class="hint">📐 ft²=L×W×Qty | RFT=L×Qty | PCS=Qty only</div>
+  <div class="legend">
+    <div class="leg"><div class="leg-dot" style="background:#1e7a45"></div><span>ft² — Floor/Wall</span></div>
+    <div class="leg"><div class="leg-dot" style="background:#185FA5"></div><span>RFT — Moulding</span></div>
+    <div class="leg"><div class="leg-dot" style="background:#633806"></div><span>PCS — Per Piece</span></div>
+  </div>
+  <div class="slbl">કામની વિગત</div>
+  <div id="bill-rows"></div>
+  <button class="abtn" id="lb-add" onclick="addRow()">+ નવી લાઇન ઉમેરો</button>
+  <div class="slbl">કુલ હિસાબ</div>
+  <div class="tots">
+    <div class="trow"><span class="tlbl">ઉપ-કુલ</span><span class="tval" id="tv-sub">₹0</span></div>
+    <div class="trow frow" id="floor-row"><span class="tlbl" id="lb-fe">માળ extra</span><span class="tval" id="tv-fe">+₹0</span></div>
+    <div class="gbox"><span class="glbl">કુલ મજૂરી</span><span class="gval" id="grand-val">₹0</span></div>
+    <div class="fwarn" id="floor-warn"></div>
+    <p class="note-el">નોંધ: બાનાપેટે ....................... રોકડા મળેલ છે.</p>
+    <div class="srow"><span>મકાનમાલિકની સહી ……………</span><span>કોન્ટ્રાક્ટરની સહી ……………</span></div>
+  </div>
+  <div class="adv-row" id="adv-section" style="display:none">
+    <div class="adv-box paid"><div class="adv-lbl">Advance Paid</div><div class="adv-val" id="adv-paid">₹0</div></div>
+    <div class="adv-box rem"><div class="adv-lbl">Remaining</div><div class="adv-val" id="adv-rem">₹0</div></div>
+  </div>
+  <button class="savebtn" onclick="saveBill()">💾 Bill Save કરો</button>
+  <div class="btn-row">
+    <button class="wabtn" onclick="shareWA()"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp</button>
+    <button class="pdfbtn" onclick="showPDF()"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>PDF Bill</button>
+  </div>
+  <a class="map-btn" href="https://maps.google.com/?q=Himmatnagar+Gujarat" target="_blank"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Himmatnagar Google Maps</a>
+</div>
+
+<!-- HISTORY -->
+<div class="page" id="page-history">
+  <div class="slbl">Saved Bills</div>
+  <div id="hist-list"></div>
+</div>
+
+<!-- CUSTOMERS -->
+<div class="page" id="page-customers">
+  <div class="slbl">Customer List</div>
+  <div id="cust-list"></div>
+</div>
+
+<!-- REVIEWS -->
+<div class="page" id="page-reviews">
+  <div class="slbl">Customer Reviews</div>
+  <div class="rev-card"><div class="stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div><div class="rev-txt">"ઘણું સારું કામ! ઘરનો આખો ફ્લોર ટાઇલ્સ ખૂબ સરસ રીતે કર્યો."</div><div class="rev-auth">રાકેશ પટેલ</div><div class="rev-place">Himmatnagar</div></div>
+  <div class="rev-card"><div class="stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div><div class="rev-txt">"Office ફ્લોરીંગ ખૂબ સુંદર. ભાવ વ્યાજબી, કામ ઉત્તમ."</div><div class="rev-auth">મીના શાહ</div><div class="rev-place">Business Owner, Himmatnagar</div></div>
+  <div class="rev-card"><div class="stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div><div class="rev-txt">"Bathroom tile work professionally. Very satisfied!"</div><div class="rev-auth">જિજ્ઞેશ દેસાઈ</div><div class="rev-place">Homeowner, Himmatnagar</div></div>
+  <div class="rev-card"><div class="stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div><div class="rev-txt">"Kitchen and hall Vitrified flooring perfect alignment."</div><div class="rev-auth">Suresh Yadav</div><div class="rev-place">Idar, Gujarat</div></div>
+</div>
+
+<!-- SETTINGS -->
+<div class="page" id="page-settings">
+  <div class="slbl">Profile & Branding</div>
+  <div class="card">
+    <div class="prof-wrap">
+      <div class="prof-prev" id="prof-prev"><span>કિ</span></div>
+      <div>
+        <div style="font-size:12px;font-weight:500;color:var(--charcoal);margin-bottom:3px">Upload Profile Photo</div>
+        <div style="font-size:10px;color:var(--lgray);margin-bottom:7px">PDF bill header પર દેખાય</div>
+        <label class="up-btn" style="cursor:pointer">Photo પસંદ કરો<input type="file" accept="image/*" style="display:none" onchange="uploadPhoto(this)"/></label>
+      </div>
+    </div>
+    <div class="f" style="margin-bottom:7px"><label>Business Name</label><input type="text" id="set-biz" value="શ્રી કિશન ટાઇલ્સ" oninput="updateBiz()"/></div>
+    <div class="f"><label>Phone Number</label><input type="tel" id="set-ph" value="83200 59124"/></div>
+  </div>
+  <div class="slbl">Preferences</div>
+  <div class="card">
+    <div class="set-row"><div><div class="set-lbl">Dark Mode</div><div class="set-sub">Easy on eyes at night</div></div><label class="toggle"><input type="checkbox" id="dark-tog" onchange="toggleDarkSet()"/><span class="tog-sl"></span></label></div>
+    <div class="set-row"><div><div class="set-lbl">Auto Bill Number</div><div class="set-sub">BILL-2026-001, 002...</div></div><label class="toggle"><input type="checkbox" checked/><span class="tog-sl"></span></label></div>
+  </div>
+  <div class="slbl">Rate List</div>
+  <div class="card" style="font-size:11px;color:var(--gray);line-height:1.9" id="rate-prev"></div>
+</div>
+
+</div>
+<div class="ftr"><strong id="ftr-name">શ્રી કિશન રામપતિ યાદવ</strong> · Himmatnagar · Mo. 83200 59124</div>
+
+<!-- PDF MODAL -->
+<div class="pdf-overlay" id="pdf-overlay" onclick="closePDFOverlay(event)">
+  <div class="pdf-modal">
+    <div class="pdf-mhdr"><span>Bill Preview</span><button class="pdf-close" onclick="closePDF()">×</button></div>
+    <div class="pdf-actions">
+      <button class="pdf-ab pr" onclick="printPDF()"><svg viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>Print / Save PDF</button>
+      <button class="pdf-ab wa" onclick="shareWA()"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp</button>
+    </div>
+    <div id="pdf-content"></div>
+  </div>
+</div>
+
+<script>
+const RATES=[
+  {id:1,gu:"વિટ્રીફાઇડ ૨૪×૨૪",hi:"विट्रीफाइड 24×24",en:"Vitrified 24×24",p:13,u:"sqft"},
+  {id:2,gu:"વિટ્રીફાઇડ ૨૪×૪૮",hi:"विट्रीफाइड 24×48",en:"Vitrified 24×48",p:35,u:"sqft"},
+  {id:31,gu:"વિટ્રીફાઇડ ૪૮×૭૨",hi:"विट्रीफाइड 48×72",en:"Vitrified 48×72",p:35,u:"sqft"},
+  {id:3,gu:"વિટ્રીફાઇડ ૩૨×૩૨",hi:"विट्रीफाइड 32×32",en:"Vitrified 32×32",p:15,u:"sqft"},
+  {id:4,gu:"વિટ્રીફાઇડ ૩૨×૬૪",hi:"विट्रीफाइड 32×64",en:"Vitrified 32×64",p:65,u:"sqft"},
+  {id:5,gu:"વિટ્રીફાઇડ બોર્ડર",hi:"विट्रीफाइड बॉर्डर",en:"Vitrified Border",p:25,u:"rft"},
+  {id:6,gu:"ગૃહ ભરવાના",hi:"ग्रह भरवाने",en:"Grouting",p:12,u:"sqft"},
+  {id:7,gu:"કિચન/ઘોડા/સીડી",hi:"किचन/घोड़ा/सीढ़ी",en:"Kitchen/Steps",p:35,u:"sqft"},
+  {id:8,gu:"ચોકઠા/બારી ફ્રેમ",hi:"चौखट/खिड़की फ्रेम",en:"Door/Window Frame",p:35,u:"rft"},
+  {id:9,gu:"ઉમરેઠ/ફ્લોરીંગ પટ્ટા",hi:"उमरेठ/फ्लोरिंग पट्टा",en:"Flooring Strip",p:500,u:"pcs"},
+  {id:10,gu:"ગ્લેસ ૧૮×૧૨",hi:"ग्लेज 18×12",en:"Glaze 18×12",p:20,u:"sqft"},
+  {id:11,gu:"ગ્લેસ ૨૪×૧૨",hi:"ग्लेज 24×12",en:"Glaze 24×12",p:25,u:"sqft"},
+  {id:12,gu:"ગ્લેસ ૨૪×૪૮",hi:"ग्लेज 24×48",en:"Glaze 24×48",p:35,u:"sqft"},
+  {id:13,gu:"ડીઝાઇન ટીકડી",hi:"डिज़ाइन टिकड़ी",en:"Design Tile",p:35,u:"pcs"},
+  {id:14,gu:"ગ્રેનાઇટ મોલ્ડીંગ",hi:"ग्रेनाइट मोल्डिंग",en:"Granite Moulding",p:40,u:"rft"},
+  {id:15,gu:"સેન્ડવીચ મોલ્ડીંગ ડબલ",hi:"सैंडविच मोल्डिंग डबल",en:"Sandwich Moulding Dbl",p:80,u:"rft"},
+  {id:16,gu:"માર્બલ મોલ્ડીંગ સીંગલ",hi:"मार्बल मोल्डिंग सिंगल",en:"Marble Moulding Single",p:30,u:"rft"},
+  {id:17,gu:"મોલ્ડીંગ રોન્ડવીચ",hi:"मोल्डिंग रोन्डविच",en:"Moulding Rondvich",p:120,u:"rft"},
+  {id:18,gu:"માર્બલ ફ્લોરીંગ",hi:"मार्बल फ्लोरिंग",en:"Marble Flooring",p:45,u:"sqft"},
+  {id:19,gu:"માર્બલ કટીંગ",hi:"मार्बल कटिंग",en:"Marble Cutting",p:20,u:"rft"},
+  {id:20,gu:"માર્બલ બોર્ડર",hi:"मार्बल बॉर्डर",en:"Marble Border",p:40,u:"rft"},
+  {id:21,gu:"સેન્ડવીચ કત્રા",hi:"सैंडविच कत्रा",en:"Sandwich Katra",p:50,u:"pcs"},
+  {id:22,gu:"વોસ બેઝીન",hi:"वॉश बेसिन",en:"Wash Basin",p:1500,u:"pcs"},
+  {id:23,gu:"સિંગ તપેલા",hi:"सिंग तपेला",en:"Sing Tapela",p:1000,u:"pcs"},
+  {id:24,gu:"જાળી",hi:"जाली",en:"Jali",p:50,u:"pcs"},
+  {id:25,gu:"ગ્રેય નાઇટ",hi:"ग्रे नाइट",en:"Grey Night",p:45,u:"sqft"},
+  {id:26,gu:"કોટા સ્ટોન",hi:"कोटा स्टोन",en:"Kota Stone",p:30,u:"sqft"},
+  {id:32,gu:"કોટા પોલિશ (RFT)",hi:"कोटा पोलिश (RFT)",en:"Kota Polish (RFT)",p:0,u:"rft"},
+  {id:33,gu:"કોટા પોલિશ (ft²)",hi:"कोटा पोलिश (ft²)",en:"Kota Polish (ft²)",p:0,u:"sqft"},
+  {id:27,gu:"એલીવેશન ટાઈલ્સ",hi:"एलिवेशन टाइल्स",en:"Elevation Tiles",p:35,u:"rft"},
+  {id:29,gu:"પાર્કીંગ ફ્લોરીંગ",hi:"पार्किंग फ्लोरिंग",en:"Parking Flooring",p:18,u:"sqft"},
+  {id:30,gu:"ચાઇના મોઝેક",hi:"चाइना मोज़ेक",en:"China Mosaic",p:18,u:"sqft"},
+  {id:99,gu:"કસ્ટમ / અન્ય",hi:"कस्टम / अन्य",en:"Custom / Other",p:0,u:"sqft"},
+];
+const LANGS={
+  gu:{add:"+ નવી લાઇન ઉમેરો",save:"Bill Save કરો",dL:"લંબ",dW:"પહોળ",dQ:"Qty",dR:"દર ₹",uL:{sqft:"ft²",rft:"RFT",pcs:"PCS"},cL:{sqft:v=>`${v} ft²`,rft:v=>`${v} RFT`,pcs:v=>`${v} નંગ`},flF:n=>`માળ ${n} × ${n*20}% extra`,flW:n=>`માળ ${n} — ${n*20}% extra`,tabs:["Bill","History","Customers","Reviews","Settings"],empty:["કોઈ bill નથી.\nSave દબાવો.","કોઈ customer નથી."]},
+  hi:{add:"+ नई लाइन जोड़ें",save:"Bill Save करें",dL:"लंबाई",dW:"चौड़ाई",dQ:"Qty",dR:"दर ₹",uL:{sqft:"ft²",rft:"RFT",pcs:"PCS"},cL:{sqft:v=>`${v} ft²`,rft:v=>`${v} RFT`,pcs:v=>`${v} नग`},flF:n=>`मंजिल ${n} × ${n*20}% extra`,flW:n=>`मंजिल ${n}: ${n*20}% अतिरिक्त`,tabs:["Bill","History","Customers","Reviews","Settings"],empty:["कोई bill नहीं।\nSave करें।","कोई customer नहीं।"]},
+  en:{add:"+ Add new row",save:"Save Bill",dL:"Length",dW:"Width",dQ:"Qty",dR:"Rate ₹",uL:{sqft:"ft²",rft:"RFT",pcs:"PCS"},cL:{sqft:v=>`${v} ft²`,rft:v=>`${v} RFT`,pcs:v=>`${v} pcs`},flF:n=>`Floor ${n} × ${n*20}% extra`,flW:n=>`Floor ${n}: ${n*20}% extra`,tabs:["Bill","History","Customers","Reviews","Settings"],empty:["No saved bills.\nTap Save.","No customers yet."]},
+};
+let lang='gu',rows=[],rowId=0,photoData=null;
+const L=()=>LANGS[lang];
+const toFt=(f,i)=>(parseFloat(f)||0)+(parseFloat(i)||0)/12;
+let curBN='BILL-2026-001';
+
+function setLang(l){lang=l;document.querySelectorAll('.lb').forEach(b=>b.classList.remove('active'));document.querySelector(`.lb[onclick="setLang('${l}')"]`).classList.add('active');document.getElementById('lb-add').textContent=L().add;['tb-bill','tb-hist','tb-cust','tb-rev','tb-set'].forEach((id,i)=>{const e=document.getElementById(id);if(e)e.textContent=L().tabs[i];});renderAll();}
+function showPage(p){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav-tab').forEach(x=>x.classList.remove('active'));document.getElementById('page-'+p).classList.add('active');document.querySelector(`.nav-tab[onclick="showPage('${p}')"]`).classList.add('active');if(p==='history')renderHist();if(p==='customers')renderCusts();if(p==='settings')renderRates();}
+function toggleDark(){document.body.classList.toggle('dark');document.getElementById('dark-tog').checked=document.body.classList.contains('dark');}
+function toggleDarkSet(){document.body.classList.toggle('dark',document.getElementById('dark-tog').checked);}
+function updateBiz(){document.getElementById('hdr-name').textContent=document.getElementById('set-biz').value;document.getElementById('ftr-name').textContent=document.getElementById('set-biz').value;}
+function uploadPhoto(inp){const file=inp.files[0];if(!file)return;const r=new FileReader();r.onload=e=>{photoData=e.target.result;['prof-prev','hdr-logo'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=`<img src="${photoData}" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/>`;});};r.readAsDataURL(file);}
+
+function cAmt(row){const r=RATES.find(x=>x.id===row.rateId)||RATES[0];const rv=parseFloat(row.rate)||r.p;const qty=parseFloat(row.qty)||1;if(r.u==='sqft')return Math.round(toFt(row.Lf,row.Li)*toFt(row.Wf,row.Wi)*qty*rv);if(r.u==='rft')return Math.round(toFt(row.Lf,row.Li)*qty*rv);return Math.round(qty*rv);}
+function cMeas(row){const r=RATES.find(x=>x.id===row.rateId)||RATES[0];const qty=parseFloat(row.qty)||1;if(r.u==='sqft')return Math.round(toFt(row.Lf,row.Li)*toFt(row.Wf,row.Wi)*qty*100)/100;if(r.u==='rft')return Math.round(toFt(row.Lf,row.Li)*qty*100)/100;return qty;}
+function bOpts(sid){return RATES.map(r=>`<option value="${r.id}"${r.id===sid?' selected':''}>${r[lang]}</option>`).join('');}
+function addRow(){rowId++;rows.push({id:rowId,rateId:1,Lf:'',Li:'',Wf:'',Wi:'',qty:1,rate:13});renderAll();}
+function delRow(id){rows=rows.filter(r=>r.id!==id);renderAll();}
+function onSel(el){const rid=parseInt(el.closest('.brow').dataset.rid);const row=rows.find(r=>r.id===rid);row.rateId=parseInt(el.value);row.rate=(RATES.find(r=>r.id===row.rateId)||RATES[0]).p;renderAll();}
+function onInp(el,f){const rid=parseInt(el.closest('.brow').dataset.rid);const row=rows.find(r=>r.id===rid);row[f]=el.value;const el2=document.querySelector(`.brow[data-rid="${row.id}"]`);if(el2){const r=RATES.find(x=>x.id===row.rateId)||RATES[0];el2.querySelector('.aft').textContent=L().cL[r.u](cMeas(row));el2.querySelector('.aval').textContent='₹'+cAmt(row).toLocaleString('en-IN');}recalc();}
+
+function buildRow(row,idx){
+  const r=RATES.find(x=>x.id===row.rateId)||RATES[0];const u=r.u;const m=cMeas(row);const amt=cAmt(row);
+  let d='';
+  if(u==='sqft'){d=`<div class="drow sq"><div><div class="dlbl">${L().dL}</div><div class="ftin"><input type="number" min="0" step="1" value="${row.Lf}" placeholder="ft" oninput="onInp(this,'Lf')"/><input type="number" min="0" max="11" step="1" value="${row.Li}" placeholder="in" oninput="onInp(this,'Li')"/></div><div class="ftins"><span>ft</span><span>in</span></div></div><div><div class="dlbl">${L().dW}</div><div class="ftin"><input type="number" min="0" step="1" value="${row.Wf}" placeholder="ft" oninput="onInp(this,'Wf')"/><input type="number" min="0" max="11" step="1" value="${row.Wi}" placeholder="in" oninput="onInp(this,'Wi')"/></div><div class="ftins"><span>ft</span><span>in</span></div></div><div><div class="dlbl">${L().dQ}</div><input class="qinp" type="number" min="1" value="${row.qty||1}" oninput="onInp(this,'qty')"/></div></div>`;}
+  else if(u==='rft'){d=`<div class="drow rft-d"><div><div class="dlbl">${L().dL} (RFT)</div><div class="ftin"><input type="number" min="0" step="1" value="${row.Lf}" placeholder="ft" oninput="onInp(this,'Lf')"/><input type="number" min="0" max="11" step="1" value="${row.Li}" placeholder="in" oninput="onInp(this,'Li')"/></div><div class="ftins"><span>ft</span><span>in</span></div></div><div><div class="dlbl">${L().dQ}</div><input class="qinp" type="number" min="1" value="${row.qty||1}" oninput="onInp(this,'qty')"/></div></div>`;}
+  else{d=`<div class="drow pcs-d" style="margin-bottom:7px"><div style="display:flex;align-items:center;gap:9px"><div class="dlbl" style="margin-bottom:0">${L().dQ}</div><input class="qinp" type="number" min="1" value="${row.qty||1}" oninput="onInp(this,'qty')"/></div></div>`;}
+  return `<span class="badge ${u}">${idx+1}·${L().uL[u]}</span><button class="bdel" onclick="delRow(${row.id})">×</button><select class="bsel" onchange="onSel(this)">${bOpts(row.rateId)}</select>${d}<div class="rrow"><span class="rlbl">${L().dR}</span><input class="rinp" type="number" min="0" value="${row.rate||r.p}" oninput="onInp(this,'rate')"/></div><div class="abar ${u}"><span class="aft ${u}">${L().cL[u](m)}</span><span class="aval ${u}">₹${amt.toLocaleString('en-IN')}</span></div>`;
+}
+function renderAll(){const cont=document.getElementById('bill-rows');cont.innerHTML='';rows.forEach((row,idx)=>{const el=document.createElement('div');el.className='brow';el.dataset.rid=row.id;el.innerHTML=buildRow(row,idx);cont.appendChild(el);});recalc();}
+
+function recalc(){
+  let sub=0;rows.forEach(r=>{sub+=cAmt(r);});
+  const fl=parseInt(document.getElementById('floor-num').value)||0;const extra=fl>0?Math.round(sub*fl*.2):0;const grand=sub+extra;
+  document.getElementById('tv-sub').textContent='₹'+sub.toLocaleString('en-IN');
+  const fr=document.getElementById('floor-row'),fw=document.getElementById('floor-warn');
+  if(fl>0){document.getElementById('lb-fe').textContent=L().flF(fl);document.getElementById('tv-fe').textContent='+₹'+extra.toLocaleString('en-IN');fr.style.display='flex';fw.textContent=L().flW(fl);fw.style.display='block';}
+  else{fr.style.display='none';fw.style.display='none';}
+  document.getElementById('grand-val').textContent='₹'+grand.toLocaleString('en-IN');
+  const adv=parseFloat(document.getElementById('adv-inp').value)||0;
+  const sec=document.getElementById('adv-section');
+  if(adv>0){document.getElementById('adv-paid').textContent='₹'+adv.toLocaleString('en-IN');document.getElementById('adv-rem').textContent='₹'+Math.max(0,grand-adv).toLocaleString('en-IN');sec.style.display='grid';}
+  else sec.style.display='none';
+}
+
+function getBill(){const cust=document.getElementById('cust-name').value||'—';const phone=document.getElementById('cust-phone').value||'';const site=document.getElementById('site-name').value||'—';const date=document.getElementById('bill-date').value||'—';const fl=parseInt(document.getElementById('floor-num').value)||0;const adv=parseFloat(document.getElementById('adv-inp').value)||0;let sub=0;rows.forEach(r=>{sub+=cAmt(r);});const extra=fl>0?Math.round(sub*fl*.2):0;const grand=sub+extra;return{cust,phone,site,date,fl,adv,sub,extra,grand,remain:Math.max(0,grand-adv),bn:curBN};}
+
+function saveBill(){
+  const d=getBill();
+  const bills=JSON.parse(sessionStorage.getItem('bills')||'[]');
+  bills.unshift({id:Date.now(),bn:curBN,cust:d.cust,phone:d.phone,site:d.site,date:d.date,grand:d.grand,adv:d.adv,remain:d.remain,rows:rows.map(r=>({...r}))});
+  sessionStorage.setItem('bills',JSON.stringify(bills));
+  saveCust(d.cust,d.phone);
+  const n=parseInt(curBN.split('-')[2]||'0')+1;curBN=`BILL-2026-${String(n).padStart(3,'0')}`;
+  document.getElementById('bn-disp').textContent=curBN;
+  rows=[];rowId=0;['cust-name','cust-phone','site-name','adv-inp'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('floor-num').value='0';document.getElementById('bill-date').value=new Date().toISOString().split('T')[0];
+  addRow();addRow();addRow();alert('Bill saved! ✅');
+}
+function saveCust(name,phone){if(!name||name==='—')return;const cs=JSON.parse(sessionStorage.getItem('custs')||'[]');const ex=cs.find(c=>c.name===name);if(ex){ex.bills=(ex.bills||0)+1;}else cs.unshift({name,phone,bills:1});sessionStorage.setItem('custs',JSON.stringify(cs));}
+
+function renderHist(){const bills=JSON.parse(sessionStorage.getItem('bills')||'[]');const cont=document.getElementById('hist-list');if(!bills.length){cont.innerHTML=`<div class="empty-state"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><p>${L().empty[0]}</p></div>`;return;}cont.innerHTML=bills.map(b=>`<div class="hist-item"><div class="hist-top"><div class="hist-name">${b.cust}</div><div class="hist-amt">₹${b.grand.toLocaleString('en-IN')}</div></div><div class="hist-meta">${b.bn} · ${b.site} · ${b.date}</div>${b.adv>0?`<div class="hist-meta" style="color:var(--amber)">Advance ₹${b.adv.toLocaleString('en-IN')} | Remaining ₹${b.remain.toLocaleString('en-IN')}</div>`:''}<div class="hist-actions"><button class="hist-btn" onclick="loadBill(${b.id})">Open</button><button class="hist-btn" onclick="pdfHist(${b.id})">PDF</button><button class="hist-btn del" onclick="delBill(${b.id})">Delete</button></div></div>`).join('');}
+function loadBill(id){const b=JSON.parse(sessionStorage.getItem('bills')||'[]').find(x=>x.id===id);if(!b)return;document.getElementById('cust-name').value=b.cust==='—'?'':b.cust;document.getElementById('cust-phone').value=b.phone||'';document.getElementById('site-name').value=b.site==='—'?'':b.site;document.getElementById('bill-date').value=b.date;rows=b.rows.map(r=>({...r}));rowId=Math.max(...rows.map(r=>r.id),0);renderAll();showPage('bill');}
+function delBill(id){if(!confirm('Delete?'))return;const bills=JSON.parse(sessionStorage.getItem('bills')||'[]').filter(b=>b.id!==id);sessionStorage.setItem('bills',JSON.stringify(bills));renderHist();}
+function pdfHist(id){const b=JSON.parse(sessionStorage.getItem('bills')||'[]').find(x=>x.id===id);if(!b)return;const sr=rows;rows=b.rows;genPDF({cust:b.cust,phone:b.phone,site:b.site,date:b.date,fl:0,adv:b.adv,sub:b.grand,extra:0,grand:b.grand,remain:b.remain,bn:b.bn});rows=sr;document.getElementById('pdf-overlay').classList.add('open');}
+
+function renderCusts(){const cs=JSON.parse(sessionStorage.getItem('custs')||'[]');const cont=document.getElementById('cust-list');if(!cs.length){cont.innerHTML=`<div class="empty-state"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><p>${L().empty[1]}</p></div>`;return;}cont.innerHTML=cs.map(c=>`<div class="cust-item"><div class="cust-av">${c.name.charAt(0)}</div><div><div class="cust-nm">${c.name}</div><div class="cust-sub">${c.phone||'—'}</div><div class="cust-sub" style="color:var(--terra)">${c.bills} bill(s)</div></div></div>`).join('');}
+
+function renderRates(){document.getElementById('rate-prev').innerHTML=RATES.filter(r=>r.p>0).map(r=>`<div style="display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px solid var(--border)"><span>${r[lang]}</span><span style="font-weight:500">₹${r.p}/${r.u}</span></div>`).join('');}
+
+function genPDF(d){
+  let rH='';rows.forEach((row,i)=>{const r=RATES.find(x=>x.id===row.rateId)||RATES[0];const m=cMeas(row);const amt=cAmt(row);const rv=parseFloat(row.rate)||r.p;const uStr=r.u==='sqft'?'ft²':r.u==='rft'?'RFT':'pcs';let ms='';if(r.u==='sqft')ms=`${toFt(row.Lf,row.Li).toFixed(1)}×${toFt(row.Wf,row.Wi).toFixed(1)}×${row.qty||1}=${m}ft²`;else if(r.u==='rft')ms=`${toFt(row.Lf,row.Li).toFixed(1)}×${row.qty||1}=${m}RFT`;else ms=`${row.qty||1}${uStr}`;rH+=`<tr style="background:${i%2===0?'#fff':'#faf8f5'}"><td style="padding:5px 7px;font-size:11px;border-bottom:1px solid #ede8e0">${i+1}</td><td style="padding:5px 7px;font-size:11px;border-bottom:1px solid #ede8e0">${r[lang]}<br><span style="font-size:9px;color:#999">${uStr}</span></td><td style="padding:5px 7px;font-size:10px;color:#555;border-bottom:1px solid #ede8e0">${ms}</td><td style="padding:5px 7px;font-size:11px;text-align:right;border-bottom:1px solid #ede8e0">₹${rv}</td><td style="padding:5px 7px;font-size:12px;font-weight:700;text-align:right;color:#1e7a45;border-bottom:1px solid #ede8e0">₹${amt.toLocaleString('en-IN')}</td></tr>`;});
+  const biz=document.getElementById('set-biz')?.value||'Kishan Tiles';const ph=document.getElementById('set-ph')?.value||'83200 59124';
+  const logo=photoData?`<img src="${photoData}" style="width:38px;height:38px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.5)"/>`:`<div style="width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.25);border:2px solid rgba(255,255,255,0.5);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff">કિ</div>`;
+  document.getElementById('pdf-content').innerHTML=`<div style="padding:15px;font-family:'Noto Sans Gujarati','Noto Sans',sans-serif"><div style="background:#b85c38;padding:12px 14px;border-radius:8px;margin-bottom:11px;display:flex;justify-content:space-between;align-items:center"><div style="display:flex;align-items:center;gap:8px">${logo}<div><div style="font-size:15px;font-weight:700;color:#fff">${biz}</div><div style="font-size:10px;color:rgba(255,255,255,0.8)">Himmatnagar · Mo. ${ph}</div></div></div><div style="text-align:right"><div style="font-size:11px;color:#fff;font-weight:600">${d.bn}</div><div style="font-size:10px;color:rgba(255,255,255,0.8)">${d.date}</div></div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:11px"><div style="background:#f7f4f0;border-radius:7px;padding:8px 10px"><div style="font-size:9px;color:#999;text-transform:uppercase;margin-bottom:2px">ગ્રાહક</div><div style="font-size:13px;font-weight:700">${d.cust}</div>${d.phone?`<div style="font-size:10px;color:#666">${d.phone}</div>`:''}</div><div style="background:#f7f4f0;border-radius:7px;padding:8px 10px"><div style="font-size:9px;color:#999;text-transform:uppercase;margin-bottom:2px">સ્થળ</div><div style="font-size:13px;font-weight:700">${d.site}</div></div></div><table style="width:100%;border-collapse:collapse;margin-bottom:9px;border:1px solid #ede8e0"><thead><tr style="background:#1e1c1a"><th style="padding:6px 7px;font-size:10px;color:#fff;text-align:left;font-weight:500">#</th><th style="padding:6px 7px;font-size:10px;color:#fff;text-align:left;font-weight:500">વિગત</th><th style="padding:6px 7px;font-size:10px;color:#fff;text-align:left;font-weight:500">માપ</th><th style="padding:6px 7px;font-size:10px;color:#fff;text-align:right;font-weight:500">દર</th><th style="padding:6px 7px;font-size:10px;color:#fff;text-align:right;font-weight:500">રકમ</th></tr></thead><tbody>${rH}</tbody></table><div><div style="display:flex;justify-content:space-between;padding:4px 7px;font-size:12px;border-bottom:1px solid #ede8e0"><span style="color:#666">ઉપ-કુલ</span><span>₹${d.sub.toLocaleString('en-IN')}</span></div>${d.fl>0?`<div style="display:flex;justify-content:space-between;padding:4px 7px;font-size:11px;color:#7a5500;border-bottom:1px solid #ede8e0"><span>માળ ${d.fl} extra</span><span>+₹${d.extra.toLocaleString('en-IN')}</span></div>`:''}<div style="background:#b85c38;border-radius:7px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;margin-top:7px"><span style="font-size:13px;font-weight:700;color:#fff">કુલ મજૂરી</span><span style="font-size:20px;font-weight:700;color:#fff">₹${d.grand.toLocaleString('en-IN')}</span></div>${d.adv>0?`<div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:7px"><div style="background:#edf7f2;border-radius:6px;padding:7px 9px;text-align:center"><div style="font-size:9px;color:#1e7a45">Advance Paid</div><div style="font-size:14px;font-weight:700;color:#1e7a45">₹${d.adv.toLocaleString('en-IN')}</div></div><div style="background:#FAEEDA;border-radius:6px;padding:7px 9px;text-align:center"><div style="font-size:9px;color:#633806">Remaining</div><div style="font-size:14px;font-weight:700;color:#633806">₹${d.remain.toLocaleString('en-IN')}</div></div></div>`:''}</div><div style="font-size:10px;color:#aaa;margin-top:9px;margin-bottom:9px">નોંધ: બાનાપેટે ....................... રોકડા મળેલ છે.</div><div style="display:flex;justify-content:space-between;border-top:1px solid #ede8e0;padding-top:9px;font-size:10px;color:#aaa"><span>મકાનમાલિકની સહી ……………</span><span>કોન્ટ્રાક્ટરની સહી ……………</span></div></div>`;
+}
+function showPDF(){const d=getBill();genPDF(d);document.getElementById('pdf-overlay').classList.add('open');}
+function closePDF(){document.getElementById('pdf-overlay').classList.remove('open');}
+function closePDFOverlay(e){if(e.target===document.getElementById('pdf-overlay'))closePDF();}
+function printPDF(){const c=document.getElementById('pdf-content').innerHTML;const w=window.open('','_blank');w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Bill</title><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;500;700&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet"><style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Noto Sans Gujarati','Noto Sans',sans-serif;padding:14px;max-width:640px;margin:0 auto}@media print{body{padding:0}}</style></head><body>${c}<script>window.onload=function(){window.print();}<\/script></body></html>`);w.document.close();}
+function shareWA(){const d=getBill();let msg=`*${document.getElementById('set-biz')?.value||'Kishan Tiles'}*\nMo. ${document.getElementById('set-ph')?.value||'83200 59124'}\n━━━━━━━━\n📋 ${d.bn}\n👤 ${d.cust}${d.phone?' · '+d.phone:''}\n📍 ${d.site}  📅 ${d.date}\n━━━━━━━━\n`;rows.forEach((row,i)=>{const r=RATES.find(x=>x.id===row.rateId)||RATES[0];const m=cMeas(row);const amt=cAmt(row);const rv=parseFloat(row.rate)||r.p;const uStr=r.u==='sqft'?'ft²':r.u==='rft'?'RFT':'pcs';msg+=`${i+1}. ${r[lang]} [${uStr}]\n   ₹${rv}×${m}${uStr}=*₹${amt.toLocaleString('en-IN')}*\n`;});msg+=`━━━━━━━━\n*કુલ:₹${d.grand.toLocaleString('en-IN')}*`;if(d.adv>0)msg+=`\nAdv:₹${d.adv.toLocaleString('en-IN')} | Rem:₹${d.remain.toLocaleString('en-IN')}`;window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');}
+
+document.getElementById('bill-date').value=new Date().toISOString().split('T')[0];
+addRow();addRow();addRow();
+</script>
